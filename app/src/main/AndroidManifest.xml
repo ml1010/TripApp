@@ -10,8 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TripApp">
         <activity
-            android:name=".MainActivity"/>
-        <activity
             android:name=".IntroActivity"
             android:exported="true">
             <intent-filter>
@@ -19,6 +17,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+
+        </activity>
+        <activity android:name=".MapActivity" />
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="ly8svnfp5w" />
+
     </application>
 
 </manifest>

@@ -15,6 +15,7 @@ class IntroActivity : AppCompatActivity() {
             startActivity(intent)
                              }, 3000) }
 
+
     override fun onPause() {
         super.onPause()
         finish()
