@@ -3,11 +3,16 @@ package com.example.tripapp
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import com.example.tripapp.databinding.ActivityLoginBinding
+import java.security.MessageDigest
 
 class LoginActivity : AppCompatActivity() {
     val TAG: String = "LoginActivity"
@@ -41,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
             if(id == savedId && pw == savedPw){
                 // 로그인 성공 다이얼로그 보여주기
                 dialog("success")
-                val intent = Intent(this, MapActivity::class.java)
+                val intent = Intent(this, KakaoMapActivity::class.java)
                 startActivity(intent)
             }
             else{
@@ -49,6 +54,7 @@ class LoginActivity : AppCompatActivity() {
                 dialog("fail")
             }
         }
+
 
         // 회원가입 버튼
         binding.btnRegister.setOnClickListener {
@@ -61,6 +67,8 @@ class LoginActivity : AppCompatActivity() {
     // 로그인 성공/실패 시 다이얼로그를 띄워주는 메소드
     fun dialog(type: String){
         var dialog = AlertDialog.Builder(this)
+
+
 
         if(type.equals("success")){
             dialog.setTitle("로그인 성공")
@@ -79,6 +87,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+
 
         dialog.setPositiveButton("확인",dialog_listener)
         dialog.show()

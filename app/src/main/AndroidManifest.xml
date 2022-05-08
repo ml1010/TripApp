@@ -4,6 +4,10 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET">
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION">
+    </uses-permission>
 
     <application
         android:allowBackup="true"
@@ -20,7 +24,7 @@
             android:exported="false" />
         <activity
             android:name=".IntroActivity"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,7 +37,10 @@
         <activity
             android:name=".MapActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".KakaoMapActivity"
+            android:exported="false" />
+        <meta-data android:name="com.kakao.sdk.AppKey" android:value="7e671c428e41805d6e1be1a69c0a8432"/>
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="ly8svnfp5w" />

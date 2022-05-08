@@ -7,16 +7,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.annotation.UiThread
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.tripapp.databinding.ActivityMainBinding
+import com.example.tripapp.databinding.ActivityMapviewBinding
 import com.google.android.gms.location.*
+import com.google.android.material.snackbar.Snackbar
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
-
+    lateinit var binding : ActivityMapviewBinding;
     val permission_request = 99
     private lateinit var naverMap: NaverMap
     var permissions = arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -26,7 +31,14 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         //activity가 최초 실행 되면 이곳을 수행
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mapview)
+        binding = ActivityMapviewBinding.inflate(layoutInflater);
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)	//툴바 사용 설정
+
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)	//왼쪽 버튼 사용설정(기본은 뒤로가기)
+        supportActionBar!!.setHomeAsUpIndicator(R.drawable.baseline_search_white_24)	//왼쪽 버튼 메뉴로 아이콘 변경
+        supportActionBar!!.setDisplayShowTitleEnabled(true)		//타이틀 보이게 설정
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         if (isPermitted()) {
@@ -34,6 +46,33 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         } else {
             ActivityCompat.requestPermissions(this, permissions, permission_request)
         }//권한 확인
+    }
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.actionbar_menu, menu)		//작성한 메뉴파일 설정
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when(item!!.itemId){
+            android.R.id.home->{	//각 버튼 마다 스낵바 메세지로 기능 구현
+                Snackbar.make(binding.toolbar,"Menu pressed",Snackbar.LENGTH_SHORT).show()
+            }
+            R.id.menu_search->{
+                Snackbar.make(binding.toolbar,"Search Menu pressed",Snackbar.LENGTH_SHORT).show()
+            }
+            R.id.menu_account->{
+                Snackbar.make(binding.toolbar,"Account Menu pressed",Snackbar.LENGTH_SHORT).show()
+            }
+            R.id.menu_logout->{
+                Snackbar.make(binding.toolbar,"Logout Menu pressed",Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     fun isPermitted(): Boolean {
